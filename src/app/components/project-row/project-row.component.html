@@ -1,0 +1,9 @@
+<div class="project-row">
+  <div
+    class=""
+    *ngFor="let branch of project.Branches"
+    [ngStyle]="getPosition(branch)"
+  >
+    {{ project.Name }}-{{ branch }}
+  </div>
+</div>

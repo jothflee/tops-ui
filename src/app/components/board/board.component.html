@@ -1,0 +1,52 @@
+<div class="tops-board">
+  <div class="sidenav">
+    <div class="title">
+      Tops
+      <img id="gopher" src="assets/tops.png" alt="go gopher" />
+    </div>
+    <button mat-flat-button color="primary">Teams</button>
+    <div class="bottom mat-small">
+      Goper image by
+      <a href="https://github.com/egonelbre/gophers">egonelbre</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="inner">
+      <div class="parts">
+        <div class="part teams">
+          <div *ngIf="teams$ | async as teams; else loading">
+            <div class="teamrow" *ngFor="let team of teams; index as i">
+              <div class="inner">
+                <team-row [team]="team"></team-row>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="part" *ngFor="let state of states">{{ state }}</div>
+      </div>
+
+      <!-- <table mat-table [dataSource]="teams$">
+        <ng-container matColumnDef="team">
+          <th mat-header-cell *matHeaderCellDef>Team</th>
+          <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table> -->
+
+      <!-- <div *ngIf="teams$ | async as teams; else loading">
+        <div class="row" *ngFor="let team of teams; index as i">
+          <team-row [team]="team"></team-row>
+        </div>
+      </div> -->
+
+      <ng-template #loading>
+        <div id="spinner-center">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

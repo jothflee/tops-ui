@@ -1,0 +1,10 @@
+<div class="team-row">
+  <div class="team-row-header mat-title">
+    {{ team.Name }}
+  </div>
+  <div class="projects">
+    <div class="row" *ngFor="let project of team.Projects">
+      <project-row [project]="project"></project-row>
+    </div>
+  </div>
+</div>

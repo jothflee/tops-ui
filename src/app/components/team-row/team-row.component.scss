@@ -1,0 +1,23 @@
+@import "../../../styles.scss";
+
+.team-row {
+  @include themepluck(color, foreground, text, 0%);
+}
+
+.team-row-header {
+}
+
+.projects {
+  padding-left: 10px;
+}
+
+.row {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.row:nth-child(odd) {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

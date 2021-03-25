@@ -1,0 +1,98 @@
+@import "node_modules/@angular/material/_theming.scss";
+
+$light-primary: mat-palette($mat-pink);
+$light-accent: mat-palette($mat-blue-grey);
+$light-theme: mat-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+      warn: $light-primary,
+      foreground: $light-primary,
+      background: $light-primary
+    )
+  )
+);
+
+$dark-primary: mat-palette($mat-deep-orange);
+$dark-accent: mat-palette($mat-pink);
+$dark-warn: mat-palette($mat-pink);
+$dark-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+      warn: $dark-warn,
+      foreground: $dark-primary,
+      background: $dark-primary
+    )
+  )
+);
+
+@include mat-core();
+
+.light {
+  @include angular-material-theme($light-theme);
+}
+.dark {
+  @include angular-material-color($dark-theme);
+}
+
+$themes: (
+  dark: $dark-theme,
+  light: $light-theme
+);
+// TODO themes map and loop
+@mixin theme($property: null, $key: null, $lighten: 0) {
+  @each $name, $map in $themes {
+    .#{$name} :host ::ng-deep & {
+      #{$property}: lighten(mat-color(map_get($map, $key)), $lighten);
+    }
+  }
+}
+// TODO consolidate
+@mixin thememap($property: null, $key: null, $lighten: 0) {
+  @each $name, $map in $themes {
+    .#{$name} :host ::ng-deep & {
+      #{$property}: lighten(map_get(map_get($map, $key), $key), $lighten);
+    }
+  }
+}
+// TODO consolidate
+@mixin themepluck($property: null, $key: null, $part: null, $lighten: 0) {
+  @each $name, $map in $themes {
+    .#{$name} :host ::ng-deep & {
+      #{$property}: lighten(map_get(map_get($map, $key), $part), $lighten);
+    }
+  }
+}
+
+@each $name, $map in $themes {
+  #topsui.#{$name} {
+    background-color: map_get(map_get($map, background), background);
+    @include themepluck(color, foreground, text, 0%);
+  }
+}
+
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#topsui {
+  padding: 0;
+  margin: 0;
+  outline-width: 0;
+  border-width: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  // overflow-x: hidden;
+  // overflow-y: auto;
+}
+
+.center {
+  vertical-align: middle;
+}
